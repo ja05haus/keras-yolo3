@@ -28,7 +28,6 @@ from tensorflow.compat.v1 import InteractiveSession
 config = tf.compat.v1.ConfigProto(allow_soft_placement=True)
 config.gpu_options.allow_growth = True
 session = InteractiveSession(config=config)
-
 tf.compat.v1.keras.backend.set_session(session)
 
 def create_training_instances(
@@ -80,6 +79,7 @@ def create_training_instances(
 def create_callbacks(saved_weights_name, tensorboard_logs, model_to_save):
     makedirs(tensorboard_logs)
 
+
     early_stop = EarlyStopping(
         monitor     = 'loss',
         min_delta   = 0.01,
@@ -111,8 +111,8 @@ def create_callbacks(saved_weights_name, tensorboard_logs, model_to_save):
         write_graph            = True,
         write_images           = True,
     )
-    return [early_stop, checkpoint, reduce_on_plateau, tensorboard]
-
+    # return [early_stop, checkpoint, reduce_on_plateau, tensorboard]
+    return [checkpoint, reduce_on_plateau, tensorboard]
 def create_model(
     nb_class,
     anchors,
